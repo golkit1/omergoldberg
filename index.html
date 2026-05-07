@@ -326,38 +326,62 @@
     }
 
 
-    /* TWO-COLUMN LAYOUT */
-    section {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 0 3rem;
-      padding: 5rem 3rem;
-      border-bottom: 1px solid var(--line);
-    }
+
+    footer { padding: 3rem 3rem 4rem; }
     .section-head {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 0 3rem;
-      align-items: baseline;
-      margin-bottom: 3.5rem;
+      display: flex; align-items: baseline; gap: 1.2rem;
+      margin-bottom: 4rem;
     }
     .section-num {
       font-family: var(--mono); font-size: .6rem;
       color: var(--muted); letter-spacing: .12em;
-      text-align: left;
-      padding-top: .3rem;
     }
-    section > *:not(.section-head) {
-      grid-column: 2;
+    .gallery-grid {
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     }
-    footer {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 0 3rem;
-      padding: 3rem 3rem 4rem;
+
+    /* LAYOUT */
+    section {
+      padding: 5rem 5vw;
+      border-bottom: 1px solid var(--line);
+      width: 100%;
     }
-    footer > * { grid-column: 2; }
+    .section-head {
+      display: flex; align-items: baseline; gap: 1.2rem;
+      margin-bottom: 3.5rem;
+    }
+    .section-num {
+      font-family: var(--mono); font-size: .65rem;
+      color: var(--muted); letter-spacing: .12em;
+    }
+    h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 300; letter-spacing: -.01em;
+    }
+    footer { padding: 3rem 5vw 4rem; }
+
+    /* BIGGER READABLE TEXT */
+    .work-title { font-size: 1.05rem; font-weight: 400; }
+    .work-meta {
+      font-family: var(--mono); font-size: .72rem;
+      color: var(--ink); letter-spacing: .05em; margin-top: .3rem;
+    }
+    .project-meta {
+      font-family: var(--mono); font-size: .75rem;
+      color: var(--ink); letter-spacing: .04em; line-height: 2;
+    }
+    .project-title { font-size: 1.3rem; font-weight: 400; margin-bottom: .6rem; }
+    .btn-link {
+      font-family: var(--mono); font-size: .75rem;
+      letter-spacing: .1em;
+    }
+    .gallery-grid {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      max-width: none;
+    }
+    .cv-text { font-size: 1.05rem; }
+    .cv-year { font-size: .75rem; }
+    .cv-cat { font-size: 1.15rem; }
   </style>
 </head>
 <body>
