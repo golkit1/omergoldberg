@@ -363,17 +363,17 @@
     /* BIGGER READABLE TEXT */
     .work-title { font-size: 1.05rem; font-weight: 400; }
     .work-meta {
-      font-family: var(--mono); font-size: .72rem;
-      color: var(--ink); letter-spacing: .05em; margin-top: .3rem;
+      font-family: var(--serif); font-size: .95rem;
+      color: var(--muted); letter-spacing: .01em; margin-top: .3rem; line-height: 1.6;
     }
     .project-meta {
-      font-family: var(--mono); font-size: .75rem;
-      color: var(--ink); letter-spacing: .04em; line-height: 2;
+      font-family: var(--serif); font-size: 1rem;
+      color: var(--ink); letter-spacing: .01em; line-height: 1.9;
     }
     .project-title { font-size: 1.3rem; font-weight: 400; margin-bottom: .6rem; }
     .btn-link {
-      font-family: var(--mono); font-size: .75rem;
-      letter-spacing: .1em;
+      font-family: var(--mono); font-size: .85rem;
+      letter-spacing: .08em;
     }
     .gallery-grid {
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -444,36 +444,31 @@
       <span class="section-num">02</span>
       <h2>מוזיקה</h2>
     </div>
-    <div style="margin-top:0;">
-      <iframe
-        style="border:0; width:100%; max-width:480px; height:340px;"
-        src="https://bandcamp.com/EmbeddedPlayer/album=412048154/size=large/bgcol=F4F1EC/linkcol=7B3F1E/tracklist=true/artwork=small/transparent=true/"
-        seamless>
-        <a href="https://omergoldberg.bandcamp.com/album/kav">Kav קַו by Omer Goldberg</a>
-      </iframe>
-    </div>
-
-    <div style="margin-top:2rem;">
-      <iframe
-        style="border:0; width:100%; max-width:480px; height:120px;"
-        src="https://bandcamp.com/EmbeddedPlayer/track=1937550350/size=large/bgcol=F4F1EC/linkcol=7B3F1E/tracklist=false/artwork=small/transparent=true/"
-        seamless>
-        <a href="https://daletmusrara.bandcamp.com/track/two-phases">Two Phases by Omer Goldberg</a>
-      </iframe>
-    </div>
-
-    <div style="margin-top:2rem;">
-      <iframe
-        style="border:0; width:100%; max-width:480px; height:340px;"
-        src="https://bandcamp.com/EmbeddedPlayer/album=1181488411/size=large/bgcol=F4F1EC/linkcol=7B3F1E/tracklist=true/artwork=small/transparent=true/"
-        seamless>
-        <a href="https://omergoldberg.bandcamp.com/album/untitled-9-2">Untitled 9 by Omer Goldberg</a>
-      </iframe>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:start;">
+      <div>
+        <iframe style="border:0; width:100%; height:340px;"
+          src="https://bandcamp.com/EmbeddedPlayer/album=412048154/size=large/bgcol=F4F1EC/linkcol=7B3F1E/tracklist=true/artwork=small/transparent=true/" seamless>
+          <a href="https://omergoldberg.bandcamp.com/album/kav">Kav קַו</a>
+        </iframe>
+        <div style="margin-top:1.5rem;">
+          <iframe style="border:0; width:100%; height:120px;"
+            src="https://bandcamp.com/EmbeddedPlayer/track=1937550350/size=large/bgcol=F4F1EC/linkcol=7B3F1E/tracklist=false/artwork=small/transparent=true/" seamless>
+            <a href="https://daletmusrara.bandcamp.com/track/two-phases">Two Phases</a>
+          </iframe>
+        </div>
+      </div>
+      <div>
+        <iframe style="border:0; width:100%; height:340px;"
+          src="https://bandcamp.com/EmbeddedPlayer/album=1181488411/size=large/bgcol=F4F1EC/linkcol=7B3F1E/tracklist=true/artwork=small/transparent=true/" seamless>
+          <a href="https://omergoldberg.bandcamp.com/album/untitled-9-2">Untitled 9</a>
+        </iframe>
+      </div>
     </div>
 
   </section>
 
-  <section id="video">    <div class="section-head">
+  <section id="video-soundtrack" style="display:grid; grid-template-columns:1fr 1fr; gap:0 4rem; padding: 5rem 5vw;">
+    <div>    <div class="section-head">
       <span class="section-num">03</span>
       <h2>וידאו</h2>
     </div>
@@ -506,10 +501,8 @@
         </div>
       </div>
         </div>
-  </section>
-
-
-  <section id="soundtrack">    <div class="section-head">
+      </div>
+    <div>    <div class="section-head">
       <span class="section-num">04</span>
       <h2>פסקול לוידאו</h2>
     </div>
@@ -520,66 +513,23 @@
       </div>
       <p class="project-meta">פסקול מקורי לעבודת וידאו מאת האמן שי אלגסנדרוני</p>
     </div>    </div>
+      </div>
   </section>
 
 
-  <section id="cv">    <div class="section-head">
-      <span class="section-num">05</span>
-      <h2>קורות חיים</h2>
+  <section id="cv">    <div style="display:flex; justify-content:flex-start; align-items:baseline; gap:3rem; margin-bottom:2rem;">
+      <a class="btn-link" href="mailto:omer1789@gmail.com" style="font-size:1rem; letter-spacing:.02em;">omer1789@gmail.com</a>
+      <a href="cv.html" target="_blank" style="font-family:var(--mono); font-size:1rem; letter-spacing:.02em; color:var(--ink); text-decoration:none; border-bottom:1px solid var(--ink); padding-bottom:.15rem;">קורות חיים</a>
     </div>
 
-    <button class="cv-toggle" onclick="toggleCV()">+ הצג קורות חיים</button>
+    <div>
 
-    <div class="cv-body" id="cv-body" style="display:none;">
-
-      <div class="cv-block">
-        <h3 class="cv-cat">השכלה</h3>
-        <div class="cv-row"><span class="cv-year">2016–2020</span><span class="cv-text">ביה״ס לאמנות מוסררה ע״ש נגר, ירושלים — לימודי תעודה במסלול מוזיקה חדשה</span></div>
-        <div class="cv-row"><span class="cv-year">2015</span><span class="cv-text">אוניברסיטת גולדסמית׳, לונדון — קורס סינטיסייזרים והפקה מוזיקלית</span></div>
-        <div class="cv-row"><span class="cv-year">2013–2014</span><span class="cv-text">אוניברסיטת מזרח לונדון — לימודי מוזיקה עכשווית</span></div>
-      </div>
-
-      <div class="cv-block">
-        <h3 class="cv-cat">ניסיון</h3>
-        <div class="cv-row"><span class="cv-year">2024–היום</span><span class="cv-text">הנחיית סדנאות בניית מעגלים חשמליים וסינתזה, ירושלים</span></div>
-        <div class="cv-row"><span class="cv-year">2024–היום</span><span class="cv-text">עיצוב וטכנאות סאונד ותכנות מערכת אינטרקטיבית מבוססת חיישני מגע — פרופסור איילת לנדאו, המעבדה לחקר המוח, הר הצופים, ירושלים</span></div>
-        <div class="cv-row"><span class="cv-year">2024–היום</span><span class="cv-text">הוראת קורס ״אלקטרוניקה בסיסית ויישומים מוזיקלים״ — בנייה של מעגלים חשמליים מחוללי צליל</span></div>
-        <div class="cv-row"><span class="cv-year">2023–היום</span><span class="cv-text">הוראת קורס ״יצירתיות צלילית בחשמל״ במוסררה — נגינה בסינתיסייזרים מודולרים</span></div>
-        <div class="cv-row"><span class="cv-year">2023</span><span class="cv-text">בנייה ותכנות מערכת סאונד רב שכבתית עם חיישני מגע (Arduino, Pure Data, Raspberry Pi) — פרופסור אמנון וולמן, גלריה לאמנות ומוח ע״ש מרטין דאסו, גבעת רם, ירושלים</span></div>
-        <div class="cv-row"><span class="cv-year">2022–היום</span><span class="cv-text">חבר צוות טכני ואחראי מחשוב, ביה״ס מוסררה ע״ש נגר, ירושלים</span></div>
-        <div class="cv-row"><span class="cv-year">2022</span><span class="cv-text">בנייה ותכנות מערכת סאונד אינטרקטיבית (Arduino, Max MSP) — לאמנית שפירו, מוזיאון לאמנות דיגיטלית, חולון</span></div>
-        <div class="cv-row"><span class="cv-year">2021</span><span class="cv-text">מוזיקה מקורית עבור הבמאי ואמן שי אלכסנדרוני, בית האמנים, תל אביב</span></div>
-        <div class="cv-row"><span class="cv-year">2021</span><span class="cv-text">בנייה ותכנות מערכת סאונד רב שכבתית (Arduino) — לאמנית מעיין צדקה, פרויקט החממה, מוזיאוני חיפה</span></div>
-        <div class="cv-row"><span class="cv-year">2021</span><span class="cv-text">בנייה ותכנות מערכת נורות (Arduino) — לאמנית נעה אלרן, מופע ״אישון לילה״, מרכז ענאנה, עין יעל, ירושלים</span></div>
-        <div class="cv-row"><span class="cv-year">2019–היום</span><span class="cv-text">בניית מערכות טיפוליות אינטראקטיביות (Max MSP) — הוסטל בית פינגר, ירושלים</span></div>
-      </div>
-
-      <div class="cv-block">
-        <h3 class="cv-cat">יצירה</h3>
-        <div class="cv-row"><span class="cv-year">2024</span><span class="cv-text">יצירה אלקטרו-אקוסטית בשיתוף המלחין ליאור איתן — מרכז פליציה בלומנטל, תל אביב</span></div>
-        <div class="cv-row"><span class="cv-year">2023</span><span class="cv-text">מופע סולו — פסטיבל פולחן הסתיו, הזירה הבין תחומית, ירושלים</span></div>
-        <div class="cv-row"><span class="cv-year">2021</span><span class="cv-text">מופע סולו — פסטיבל מוסררה מיקס, ירושלים</span></div>
-        <div class="cv-row"><span class="cv-year">2020</span><span class="cv-text">יצירה אלקטרו-אקוסטית — פסטיבל IN-SONORA, מדריד, ספרד</span></div>
-        <div class="cv-row"><span class="cv-year">2019</span><span class="cv-text">שתי פאזות — יצירה לארבעה רמקולים, פסטיבל באוהאוס חברתי, חיפה</span></div>
-        <div class="cv-row"><span class="cv-year">2018</span><span class="cv-text">סיבית — יצירה אלקטרונית, פסטיבל Ars Electronica, לינץ, אוסטריה</span></div>
-        <div class="cv-row"><span class="cv-year">2017</span><span class="cv-text">התכווצות — מיצב סאונד (עם אבי שהרבני), תערוכה ״רדיקלים חופשיים ואנטי אוקסידנטים״, ירושלים</span></div>
-      </div>
-
-      <div class="cv-block">
-        <h3 class="cv-cat">מענקים ופרסים</h3>
-        <div class="cv-row"><span class="cv-year">2024</span><span class="cv-text">מענק פיס למופע אינסטרומנטלי מקורי, עם ליאור איתן</span></div>
-        <div class="cv-row"><span class="cv-year">2019</span><span class="cv-text">פרס ראש העיר ירושלים על הצטיינות בלימודים, ביה״ס מוסררה</span></div>
-        <div class="cv-row"><span class="cv-year">2016–2018</span><span class="cv-text">מלגות הצטיינות, ביה״ס מוסררה</span></div>
-      </div>
-
-    </div>    </div>
+        </div>
   </section>
 
 
 
-  <footer id="contact">
-    <a class="btn-link" href="mailto:omer1789@gmail.com">omer1789@gmail.com</a>
-  </footer>
+  <footer id="contact"></footer>
 
   <div id="lightbox" onclick="closeLightbox()">
     <span id="lb-close">ESC / סגור</span>
@@ -646,10 +596,8 @@
 
     function toggleCV() {
       const el = document.getElementById('cv-body');
-      const btn = event.target;
       const open = el.style.display === 'none';
       el.style.display = open ? 'block' : 'none';
-      btn.textContent = open ? '− הסתר קורות חיים' : '+ הצג קורות חיים';
     }
     function toggleImages() {
       const el = document.getElementById('project-imgs');
