@@ -283,6 +283,46 @@
       height: 100%; background: var(--ink);
       width: 0%; transition: width .1s linear;
     }
+
+    /* ALBUM KAV */
+    .kav-wrap {
+      display: flex; gap: 3rem; align-items: flex-start; flex-wrap: wrap;
+    }
+    .kav-cover {
+      width: 200px; height: 200px; object-fit: cover; flex-shrink: 0;
+    }
+    .kav-tracks { flex: 1; min-width: 260px; }
+    .kav-row {
+      display: flex; align-items: center; gap: 1rem;
+      padding: .55rem 0; border-bottom: 1px solid var(--line);
+      transition: opacity .2s;
+    }
+    .kav-row.playing .kav-title { color: var(--accent); }
+    .kav-play {
+      background: none; border: none; cursor: pointer;
+      font-size: .65rem; color: var(--muted); width: 18px;
+      transition: color .2s; padding: 0; flex-shrink: 0;
+    }
+    .kav-play:hover { color: var(--ink); }
+    .kav-num {
+      font-family: var(--mono); font-size: .6rem;
+      color: var(--muted); min-width: 18px;
+    }
+    .kav-title {
+      font-family: var(--serif); font-size: .95rem;
+      font-weight: 300; flex: 1; transition: color .2s;
+    }
+    .kav-bar-wrap {
+      width: 80px; height: 1px; background: var(--line);
+    }
+    .kav-bar {
+      height: 100%; background: var(--accent); width: 0%;
+      transition: width .1s linear;
+    }
+    .kav-time {
+      font-family: var(--mono); font-size: .58rem;
+      color: var(--muted); min-width: 30px; text-align: left;
+    }
   </style>
 </head>
 <body>
@@ -350,6 +390,15 @@
     <a class="btn-link" href="https://omergoldberg.bandcamp.com" target="_blank" rel="noopener">
       omergoldberg.bandcamp.com ↗
     </a>
+
+    <div style="margin-top:3rem;">
+      <iframe
+        style="border:0; width:100%; max-width:480px; height:340px;"
+        src="https://bandcamp.com/EmbeddedPlayer/album=412048154/size=large/bgcol=F4F1EC/linkcol=7B3F1E/tracklist=true/artwork=small/transparent=true/"
+        seamless>
+        <a href="https://omergoldberg.bandcamp.com/album/kav">Kav קַו by Omer Goldberg</a>
+      </iframe>
+    </div>
 
     <div class="audio-player">
       <p class="audio-track-title">Two Phases</p>
@@ -473,6 +522,8 @@
     </div>
   </section>
 
+
+
   <footer id="contact">
     <a class="btn-link" href="mailto:omer1789@gmail.com">omer1789@gmail.com</a>
   </footer>
@@ -537,6 +588,55 @@
     window.addEventListener('resize', () => drawWaveform(
       audio.duration ? audio.currentTime/audio.duration : 0
     ));
+
+
+    // Album Kav player
+    let kavCurrent = null;
+    function kavPlay(num, src) {
+      const audio = document.getElementById('kav-audio-' + num);
+      const btn = audio.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling;
+
+      // Stop any other playing track
+      if (kavCurrent && kavCurrent !== num) {
+        const prev = document.getElementById('kav-audio-' + kavCurrent);
+        prev.pause(); prev.currentTime = 0;
+        document.getElementById('kav-play-' + kavCurrent) && null;
+        document.querySelectorAll('.kav-row').forEach(r => r.classList.remove('playing'));
+        document.querySelectorAll('.kav-play').forEach(b => b.textContent = '▶');
+        document.getElementById('kav-bar-' + kavCurrent).style.width = '0%';
+        document.getElementById('kav-time-' + kavCurrent).textContent = '—';
+      }
+
+      const row = document.getElementById('kav-row-' + num);
+      const bar = document.getElementById('kav-bar-' + num);
+      const timeEl = document.getElementById('kav-time-' + num);
+      const playBtn = row.querySelector('.kav-play');
+
+      if (audio.paused) {
+        audio.play();
+        kavCurrent = num;
+        row.classList.add('playing');
+        playBtn.textContent = '❚❚';
+        audio.ontimeupdate = () => {
+          const pct = (audio.currentTime / audio.duration) * 100 || 0;
+          bar.style.width = pct + '%';
+          const m = Math.floor(audio.currentTime/60);
+          timeEl.textContent = m + ':' + String(Math.floor(audio.currentTime%60)).padStart(2,'0');
+        };
+        audio.onended = () => {
+          row.classList.remove('playing');
+          playBtn.textContent = '▶';
+          bar.style.width = '0%';
+          timeEl.textContent = '—';
+          kavCurrent = null;
+        };
+      } else {
+        audio.pause();
+        row.classList.remove('playing');
+        playBtn.textContent = '▶';
+        kavCurrent = null;
+      }
+    }
 
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
