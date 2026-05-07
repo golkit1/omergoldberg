@@ -31,14 +31,11 @@
     /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.3rem 3rem;
       background: var(--bg);
       border-bottom: 1px solid transparent;
       transition: border-color .4s;
-    }
-    .nav-inner {
-      max-width: 860px; margin: 0 auto;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.3rem 2rem;
     }
     nav.scrolled { border-color: var(--line); }
     .nav-name {
@@ -328,13 +325,39 @@
       color: var(--muted); min-width: 30px; text-align: left;
     }
 
-    /* CENTERED LAYOUT */
-    .container {
-      max-width: 860px;
-      margin: 0 auto;
+
+    /* TWO-COLUMN LAYOUT */
+    section {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 0 3rem;
+      padding: 5rem 3rem;
+      border-bottom: 1px solid var(--line);
     }
-    section { padding: 5rem 2rem; border-bottom: 1px solid var(--line); }
-    footer { padding: 3rem 2rem 4rem; }
+    .section-head {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 0 3rem;
+      align-items: baseline;
+      margin-bottom: 3.5rem;
+    }
+    .section-num {
+      font-family: var(--mono); font-size: .6rem;
+      color: var(--muted); letter-spacing: .12em;
+      text-align: left;
+      padding-top: .3rem;
+    }
+    section > *:not(.section-head) {
+      grid-column: 2;
+    }
+    footer {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 0 3rem;
+      padding: 3rem 3rem 4rem;
+    }
+    footer > * { grid-column: 2; }
   </style>
 </head>
 <body>
@@ -344,8 +367,7 @@
 
   </nav>
 
-  <section id="works">
-    <div class="container">    <div class="section-head">
+  <section id="works">    <div class="section-head">
       <span class="section-num">01</span>
       <h2>עבודות</h2>
     </div>
@@ -394,8 +416,7 @@
     </div>    </div>
   </section>
 
-  <section id="music">
-    <div class="container">    <div class="section-head">
+  <section id="music">    <div class="section-head">
       <span class="section-num">02</span>
       <h2>מוזיקה</h2>
     </div>
@@ -426,11 +447,9 @@
       </iframe>
     </div>
 
-    </div>
   </section>
 
-  <section id="video">
-    <div class="container">    <div class="section-head">
+  <section id="video">    <div class="section-head">
       <span class="section-num">03</span>
       <h2>וידאו</h2>
     </div>
@@ -466,8 +485,7 @@
   </section>
 
 
-  <section id="soundtrack">
-    <div class="container">    <div class="section-head">
+  <section id="soundtrack">    <div class="section-head">
       <span class="section-num">04</span>
       <h2>פסקול לוידאו</h2>
     </div>
@@ -481,8 +499,7 @@
   </section>
 
 
-  <section id="cv">
-    <div class="container">    <div class="section-head">
+  <section id="cv">    <div class="section-head">
       <span class="section-num">05</span>
       <h2>קורות חיים</h2>
     </div>
@@ -537,9 +554,7 @@
 
 
   <footer id="contact">
-    <div class="container">
     <a class="btn-link" href="mailto:omer1789@gmail.com">omer1789@gmail.com</a>
-    </div>
   </footer>
 
   <div id="lightbox" onclick="closeLightbox()">
