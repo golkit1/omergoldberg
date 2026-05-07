@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>קורות חיים — עמר גולדברג</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #F4F1EC;
+      --ink:    #1A1713;
+      --muted:  #8A8178;
+      --accent: #7B3F1E;
+      --line:   #D4CEC5;
+      --serif:  'Cormorant Garamond', Georgia, serif;
+      --mono:   'IBM Plex Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--serif);
+      font-weight: 300;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.3rem 3rem;
+      background: var(--bg);
+      border-bottom: 1px solid transparent;
+      transition: border-color .4s;
+    }
+    nav.scrolled { border-color: var(--line); }
+    .nav-name {
+      font-family: var(--serif); font-size: 1rem; font-weight: 400;
+      letter-spacing: .04em; text-decoration: none; color: var(--ink);
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--mono); font-size: .65rem; font-weight: 300;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; transition: color .2s;
+      cursor: pointer;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 3rem 5rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-tag {
+      font-family: var(--mono); font-size: .65rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 1.4rem;
+    }
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 4.5rem);
+      font-weight: 300; line-height: .95;
+      letter-spacing: -.02em; margin-bottom: 2.5rem;
+    }
+    h1 em { font-style: italic; color: var(--ink); }
+    .hero-desc {
+      max-width: 480px; font-size: 1.15rem; line-height: 1.85;
+      color: var(--muted);
+    }
+
+    /* SECTIONS */
+    section { padding: 6rem 3rem; border-bottom: 1px solid var(--line); }
+
+    .section-head {
+      display: flex; align-items: baseline; gap: 1.2rem;
+      margin-bottom: 4rem;
+    }
+    .section-num {
+      font-family: var(--mono); font-size: .6rem;
+      color: var(--muted); letter-spacing: .12em;
+    }
+    h2 {
+      font-size: clamp(1.7rem, 3.5vw, 2.5rem);
+      font-weight: 300; letter-spacing: -.01em;
+    }
+
+    /* GALLERY */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      max-width: 900px;
+      gap: 1.8rem;
+    }
+    .work-card { cursor: zoom-in; }
+    .work-card .img-wrap { overflow: hidden; background: var(--line); }
+    .work-card img {
+      display: block; width: 100%;
+      aspect-ratio: 3 / 4; object-fit: cover;
+      transition: transform .7s cubic-bezier(.25,.46,.45,.94), opacity .3s;
+    }
+    .work-card:hover img { transform: scale(1.04); opacity: .88; }
+    .work-caption { padding: .85rem 0 .3rem; }
+    .work-title { font-size: .95rem; font-weight: 400; }
+    .work-meta {
+      font-family: var(--mono); font-size: .6rem;
+      color: var(--muted); letter-spacing: .08em; margin-top: .3rem;
+    }
+
+    /* LIGHTBOX */
+    #lightbox {
+      display: none; position: fixed; inset: 0;
+      background: rgba(26,23,19,.93); z-index: 999;
+      justify-content: center; align-items: center;
+      padding: 2rem; cursor: zoom-out;
+    }
+    #lightbox.open { display: flex; animation: fadeIn .25s ease; }
+    @keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+    #lightbox img {
+      max-width: 88vw; max-height: 88vh;
+      object-fit: contain; box-shadow: 0 40px 80px rgba(0,0,0,.5);
+    }
+    #lb-close {
+      position: fixed; top: 1.5rem; right: 1.5rem;
+      font-family: var(--mono); font-size: .65rem;
+      color: #888; letter-spacing: .1em; cursor: pointer;
+      transition: color .2s;
+    }
+    #lb-close:hover { color: #fff; }
+
+    /* MUSIC */
+    .music-inner {
+      display: flex; gap: 4rem; align-items: flex-start; flex-wrap: wrap;
+    }
+    .music-text { flex: 1; min-width: 220px; }
+    .music-text p {
+      font-size: 1.1rem; color: var(--muted); line-height: 1.85; margin-bottom: 2rem;
+    }
+    .btn-link {
+      display: inline-block;
+      font-family: var(--mono); font-size: .65rem;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--ink); text-decoration: none;
+      border-bottom: 1px solid var(--ink); padding-bottom: .15rem;
+      transition: color .2s, border-color .2s;
+    }
+    .btn-link:hover { color: var(--accent); border-color: var(--accent); }
+    .music-embed { flex: 1; min-width: 260px; }
+    .music-embed iframe { width: 100%; border: 0; }
+
+    /* VIDEO placeholders */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.8rem;
+    }
+    .video-placeholder {
+      aspect-ratio: 16/9; background: var(--line);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center; gap: .8rem;
+      border: 1px dashed var(--muted);
+    }
+    .video-placeholder span {
+      font-family: var(--mono); font-size: .6rem;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 3rem 3rem 4rem;
+      display: flex; justify-content: space-between; align-items: flex-end;
+      flex-wrap: wrap; gap: 2rem;
+    }
+    .footer-name { font-size: 1rem; font-weight: 400; }
+    .footer-meta {
+      font-family: var(--mono); font-size: .6rem;
+      color: var(--muted); letter-spacing: .1em; line-height: 2; text-align: left;
+    }
+    .footer-meta a { color: var(--muted); text-decoration: none; transition: color .2s; }
+    .footer-meta a:hover { color: var(--ink); }
+
+    /* MOBILE */
+    @media (max-width: 640px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { gap: 1.4rem; }
+      #hero, section, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .music-inner { flex-direction: column; }
+    }
+
+    /* PROJECT INFO */
+    .project-info { margin: 1.5rem 0; }
+    .project-title {
+      font-family: var(--serif); font-size: 1.2rem;
+      font-weight: 400; margin-bottom: .5rem;
+    }
+    .project-meta {
+      font-family: var(--mono); font-size: .65rem;
+      color: var(--muted); letter-spacing: .04em;
+      line-height: 2; font-weight: 300;
+    }
+    .toggle-btn {
+      font-family: var(--mono); font-size: .65rem;
+      letter-spacing: .12em; text-transform: uppercase;
+      background: none; border: none; border-bottom: 1px solid var(--muted);
+      color: var(--muted); cursor: pointer; padding: 0 0 .15rem;
+      transition: color .2s, border-color .2s;
+    }
+    .toggle-btn:hover { color: var(--ink); border-color: var(--ink); }
+
+    /* CV */
+    .cv-toggle {
+      background: none; border: none; cursor: pointer;
+      font-family: var(--mono); font-size: .65rem; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--muted);
+      border-bottom: 1px solid var(--muted); padding-bottom: .15rem;
+      transition: color .2s, border-color .2s;
+    }
+    .cv-toggle:hover { color: var(--ink); border-color: var(--ink); }
+    .cv-body { max-width: 740px; margin-right: auto; margin-top: 2.5rem; }
+    .cv-block { margin-bottom: 3rem; }
+    .cv-cat {
+      font-family: var(--serif); font-size: 1.1rem; letter-spacing: .01em;
+      color: var(--ink); margin-bottom: 1.2rem; font-weight: 400;
+      border-bottom: 1px solid var(--line); padding-bottom: .5rem;
+    }
+    .cv-row {
+      display: flex; gap: 2rem; margin-bottom: .85rem;
+      align-items: baseline;
+    }
+    .cv-year {
+      font-family: var(--mono); font-size: .7rem; color: var(--ink);
+      letter-spacing: .04em; white-space: nowrap; min-width: 86px;
+      text-align: left; font-weight: 400;
+    }
+    .cv-text {
+      font-family: var(--serif); font-size: 1rem;
+      font-weight: 300; line-height: 1.65; color: var(--ink);
+    }
+
+    /* AUDIO PLAYER */
+    .audio-player {
+      margin-top: 2rem;
+      max-width: 520px;
+    }
+    .audio-track-title {
+      font-family: var(--serif); font-size: .95rem; font-weight: 400;
+      margin-bottom: .3rem;
+    }
+    .audio-track-meta {
+      font-family: var(--mono); font-size: .6rem; color: var(--muted);
+      letter-spacing: .08em; margin-bottom: 1rem;
+    }
+    .audio-viz-wrap {
+      position: relative; width: 100%; height: 60px;
+      margin-bottom: .8rem; cursor: pointer;
+    }
+    #waveform-canvas {
+      width: 100%; height: 100%; display: block;
+    }
+    .audio-controls {
+      display: flex; align-items: center; gap: 1.2rem;
+    }
+    .play-btn {
+      background: none; border: 1px solid var(--ink);
+      width: 36px; height: 36px; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: background .2s, color .2s;
+      font-size: .7rem; color: var(--ink);
+    }
+    .play-btn:hover { background: var(--ink); color: var(--bg); }
+    .audio-time {
+      font-family: var(--mono); font-size: .6rem;
+      color: var(--muted); letter-spacing: .06em;
+    }
+    .audio-progress-wrap {
+      flex: 1; height: 1px; background: var(--line);
+      cursor: pointer; position: relative;
+    }
+    .audio-progress-bar {
+      height: 100%; background: var(--ink);
+      width: 0%; transition: width .1s linear;
+    }
+
+    /* ALBUM KAV */
+    .kav-wrap {
+      display: flex; gap: 3rem; align-items: flex-start; flex-wrap: wrap;
+    }
+    .kav-cover {
+      width: 200px; height: 200px; object-fit: cover; flex-shrink: 0;
+    }
+    .kav-tracks { flex: 1; min-width: 260px; }
+    .kav-row {
+      display: flex; align-items: center; gap: 1rem;
+      padding: .55rem 0; border-bottom: 1px solid var(--line);
+      transition: opacity .2s;
+    }
+    .kav-row.playing .kav-title { color: var(--accent); }
+    .kav-play {
+      background: none; border: none; cursor: pointer;
+      font-size: .65rem; color: var(--muted); width: 18px;
+      transition: color .2s; padding: 0; flex-shrink: 0;
+    }
+    .kav-play:hover { color: var(--ink); }
+    .kav-num {
+      font-family: var(--mono); font-size: .6rem;
+      color: var(--muted); min-width: 18px;
+    }
+    .kav-title {
+      font-family: var(--serif); font-size: .95rem;
+      font-weight: 300; flex: 1; transition: color .2s;
+    }
+    .kav-bar-wrap {
+      width: 80px; height: 1px; background: var(--line);
+    }
+    .kav-bar {
+      height: 100%; background: var(--accent); width: 0%;
+      transition: width .1s linear;
+    }
+    .kav-time {
+      font-family: var(--mono); font-size: .58rem;
+      color: var(--muted); min-width: 30px; text-align: left;
+    }
+
+
+
+    footer { padding: 3rem 3rem 4rem; }
+    .section-head {
+      display: flex; align-items: baseline; gap: 1.2rem;
+      margin-bottom: 4rem;
+    }
+    .section-num {
+      font-family: var(--mono); font-size: .6rem;
+      color: var(--muted); letter-spacing: .12em;
+    }
+    .gallery-grid {
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
+
+    /* LAYOUT */
+    section {
+      padding: 5rem 5vw;
+      border-bottom: 1px solid var(--line);
+      width: 100%;
+    }
+    .section-head {
+      display: flex; align-items: baseline; gap: 1.2rem;
+      margin-bottom: 3.5rem;
+    }
+    .section-num {
+      font-family: var(--mono); font-size: .65rem;
+      color: var(--muted); letter-spacing: .12em;
+    }
+    h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 300; letter-spacing: -.01em;
+    }
+    footer { padding: 3rem 5vw 4rem; }
+
+    /* BIGGER READABLE TEXT */
+    .work-title { font-size: 1.05rem; font-weight: 400; }
+    .work-meta {
+      font-family: var(--serif); font-size: .95rem;
+      color: var(--muted); letter-spacing: .01em; margin-top: .3rem; line-height: 1.6;
+    }
+    .project-meta {
+      font-family: var(--serif); font-size: 1rem;
+      color: var(--ink); letter-spacing: .01em; line-height: 1.9;
+    }
+    .project-title { font-size: 1.3rem; font-weight: 400; margin-bottom: .6rem; }
+    .btn-link {
+      font-family: var(--mono); font-size: .85rem;
+      letter-spacing: .08em;
+    }
+    .gallery-grid {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      max-width: none;
+    }
+    .cv-text { font-size: 1.05rem; }
+    .cv-year { font-size: .75rem; }
+    .cv-cat { font-size: 1.15rem; }
+  </style>
+  <style>
+    body { padding-top: 4rem; }
+    .cv-back {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: var(--bg); border-bottom: 1px solid var(--line);
+      padding: 1.2rem 5vw;
+      display: flex; justify-content: flex-end;
+      z-index: 100;
+    }
+    .cv-back a {
+      font-family: var(--mono); font-size: .75rem;
+      letter-spacing: .1em; text-decoration: none;
+      color: var(--muted); border-bottom: 1px solid var(--muted);
+      padding-bottom: .1rem; transition: color .2s;
+    }
+    .cv-back a:hover { color: var(--ink); border-color: var(--ink); }
+    .cv-page-wrap { padding: 3rem 5vw 6rem; }
+    .cv-page-title {
+      font-family: var(--serif); font-size: clamp(2rem,5vw,3.5rem);
+      font-weight: 300; margin-bottom: 3rem;
+      border-bottom: 1px solid var(--line); padding-bottom: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="cv-back">
+    <a href="index.html">← חזרה</a>
+  </div>
+  <div class="cv-page-wrap">
+    <h1 class="cv-page-title">עמר גולדברג</h1>
+    <div class="cv-body" id="cv-body">
+
+      <div class="cv-block">
+        <h3 class="cv-cat">השכלה</h3>
+        <div class="cv-row"><span class="cv-year">2016–2020</span><span class="cv-text">ביה״ס לאמנות מוסררה ע״ש נגר, ירושלים — לימודי תעודה במסלול מוזיקה חדשה</span></div>
+        <div class="cv-row"><span class="cv-year">2015</span><span class="cv-text">אוניברסיטת גולדסמית׳, לונדון — קורס סינטיסייזרים והפקה מוזיקלית</span></div>
+        <div class="cv-row"><span class="cv-year">2013–2014</span><span class="cv-text">אוניברסיטת מזרח לונדון — לימודי מוזיקה עכשווית</span></div>
+      </div>
+
+      <div class="cv-block">
+        <h3 class="cv-cat">ניסיון</h3>
+        <div class="cv-row"><span class="cv-year">2024–היום</span><span class="cv-text">הנחיית סדנאות בניית מעגלים חשמליים וסינתזה, ירושלים</span></div>
+        <div class="cv-row"><span class="cv-year">2024–היום</span><span class="cv-text">עיצוב וטכנאות סאונד ותכנות מערכת אינטרקטיבית מבוססת חיישני מגע — פרופסור איילת לנדאו, המעבדה לחקר המוח, הר הצופים, ירושלים</span></div>
+        <div class="cv-row"><span class="cv-year">2024–היום</span><span class="cv-text">הוראת קורס ״אלקטרוניקה בסיסית ויישומים מוזיקלים״ — בנייה של מעגלים חשמליים מחוללי צליל</span></div>
+        <div class="cv-row"><span class="cv-year">2023–היום</span><span class="cv-text">הוראת קורס ״יצירתיות צלילית בחשמל״ במוסררה — נגינה בסינתיסייזרים מודולרים</span></div>
+        <div class="cv-row"><span class="cv-year">2023</span><span class="cv-text">בנייה ותכנות מערכת סאונד רב שכבתית עם חיישני מגע (Arduino, Pure Data, Raspberry Pi) — פרופסור אמנון וולמן, גלריה לאמנות ומוח ע״ש מרטין דאסו, גבעת רם, ירושלים</span></div>
+        <div class="cv-row"><span class="cv-year">2022–היום</span><span class="cv-text">חבר צוות טכני ואחראי מחשוב, ביה״ס מוסררה ע״ש נגר, ירושלים</span></div>
+        <div class="cv-row"><span class="cv-year">2022</span><span class="cv-text">בנייה ותכנות מערכת סאונד אינטרקטיבית (Arduino, Max MSP) — לאמנית שפירו, מוזיאון לאמנות דיגיטלית, חולון</span></div>
+        <div class="cv-row"><span class="cv-year">2021</span><span class="cv-text">מוזיקה מקורית עבור הבמאי ואמן שי אלכסנדרוני, בית האמנים, תל אביב</span></div>
+        <div class="cv-row"><span class="cv-year">2021</span><span class="cv-text">בנייה ותכנות מערכת סאונד רב שכבתית (Arduino) — לאמנית מעיין צדקה, פרויקט החממה, מוזיאוני חיפה</span></div>
+        <div class="cv-row"><span class="cv-year">2021</span><span class="cv-text">בנייה ותכנות מערכת נורות (Arduino) — לאמנית נעה אלרן, מופע ״אישון לילה״, מרכז ענאנה, עין יעל, ירושלים</span></div>
+        <div class="cv-row"><span class="cv-year">2019–היום</span><span class="cv-text">בניית מערכות טיפוליות אינטראקטיביות (Max MSP) — הוסטל בית פינגר, ירושלים</span></div>
+      </div>
+
+      <div class="cv-block">
+        <h3 class="cv-cat">יצירה</h3>
+        <div class="cv-row"><span class="cv-year">2024</span><span class="cv-text">יצירה אלקטרו-אקוסטית בשיתוף המלחין ליאור איתן — מרכז פליציה בלומנטל, תל אביב</span></div>
+        <div class="cv-row"><span class="cv-year">2023</span><span class="cv-text">מופע סולו — פסטיבל פולחן הסתיו, הזירה הבין תחומית, ירושלים</span></div>
+        <div class="cv-row"><span class="cv-year">2021</span><span class="cv-text">מופע סולו — פסטיבל מוסררה מיקס, ירושלים</span></div>
+        <div class="cv-row"><span class="cv-year">2020</span><span class="cv-text">יצירה אלקטרו-אקוסטית — פסטיבל IN-SONORA, מדריד, ספרד</span></div>
+        <div class="cv-row"><span class="cv-year">2019</span><span class="cv-text">שתי פאזות — יצירה לארבעה רמקולים, פסטיבל באוהאוס חברתי, חיפה</span></div>
+        <div class="cv-row"><span class="cv-year">2018</span><span class="cv-text">סיבית — יצירה אלקטרונית, פסטיבל Ars Electronica, לינץ, אוסטריה</span></div>
+        <div class="cv-row"><span class="cv-year">2017</span><span class="cv-text">התכווצות — מיצב סאונד (עם אבי שהרבני), תערוכה ״רדיקלים חופשיים ואנטי אוקסידנטים״, ירושלים</span></div>
+      </div>
+
+      <div class="cv-block">
+        <h3 class="cv-cat">מענקים ופרסים</h3>
+        <div class="cv-row"><span class="cv-year">2024</span><span class="cv-text">מענק פיס למופע אינסטרומנטלי מקורי, עם ליאור איתן</span></div>
+        <div class="cv-row"><span class="cv-year">2019</span><span class="cv-text">פרס ראש העיר ירושלים על הצטיינות בלימודים, ביה״ס מוסררה</span></div>
+        <div class="cv-row"><span class="cv-year">2016–2018</span><span class="cv-text">מלגות הצטיינות, ביה״ס מוסררה</span></div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
