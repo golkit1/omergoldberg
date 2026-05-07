@@ -387,11 +387,7 @@
       <span class="section-num">02</span>
       <h2>מוזיקה</h2>
     </div>
-    <a class="btn-link" href="https://omergoldberg.bandcamp.com" target="_blank" rel="noopener">
-      omergoldberg.bandcamp.com ↗
-    </a>
-
-    <div style="margin-top:3rem;">
+    <div style="margin-top:0;">
       <iframe
         style="border:0; width:100%; max-width:480px; height:340px;"
         src="https://bandcamp.com/EmbeddedPlayer/album=412048154/size=large/bgcol=F4F1EC/linkcol=7B3F1E/tracklist=true/artwork=small/transparent=true/"
@@ -400,21 +396,25 @@
       </iframe>
     </div>
 
-    <div class="audio-player">
-      <p class="audio-track-title">Two Phases</p>
-      <p class="audio-track-meta">Freqs of Nature Vol. 2 — New Music Compilation</p>
-      <div class="audio-viz-wrap" onclick="seekAudio(event)">
-        <canvas id="waveform-canvas"></canvas>
-      </div>
-      <div class="audio-controls">
-        <button class="play-btn" id="play-btn" onclick="togglePlay()">▶</button>
-        <div class="audio-progress-wrap" onclick="seekAudio(event)">
-          <div class="audio-progress-bar" id="progress-bar"></div>
-        </div>
-        <span class="audio-time" id="audio-time">0:00</span>
-      </div>
-      <audio id="audio-el" src="two_phases.mp3" preload="metadata"></audio>
+    <div style="margin-top:2rem;">
+      <iframe
+        style="border:0; width:100%; max-width:480px; height:120px;"
+        src="https://bandcamp.com/EmbeddedPlayer/track=1937550350/size=large/bgcol=F4F1EC/linkcol=7B3F1E/tracklist=false/artwork=small/transparent=true/"
+        seamless>
+        <a href="https://daletmusrara.bandcamp.com/track/two-phases">Two Phases by Omer Goldberg</a>
+      </iframe>
     </div>
+
+    <div style="margin-top:2rem;">
+      <iframe
+        style="border:0; width:100%; max-width:480px; height:340px;"
+        src="https://bandcamp.com/EmbeddedPlayer/album=1181488411/size=large/bgcol=F4F1EC/linkcol=7B3F1E/tracklist=true/artwork=small/transparent=true/"
+        seamless>
+        <a href="https://omergoldberg.bandcamp.com/album/untitled-9-2">Untitled 9 by Omer Goldberg</a>
+      </iframe>
+    </div>
+
+
   </section>
 
   <section id="video">
@@ -536,58 +536,6 @@
   <script>
 
 
-    // Audio player
-    const audio = document.getElementById('audio-el');
-    const playBtn = document.getElementById('play-btn');
-    const progressBar = document.getElementById('progress-bar');
-    const timeEl = document.getElementById('audio-time');
-    const canvas = document.getElementById('waveform-canvas');
-    const ctx = canvas ? canvas.getContext('2d') : null;
-
-    function togglePlay() {
-      if (audio.paused) { audio.play(); playBtn.textContent = '❚❚'; }
-      else { audio.pause(); playBtn.textContent = '▶'; }
-    }
-
-    function seekAudio(e) {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const ratio = (e.clientX - rect.left) / rect.width;
-      audio.currentTime = ratio * audio.duration;
-    }
-
-    function fmtTime(s) {
-      const m = Math.floor(s/60);
-      return m + ':' + String(Math.floor(s%60)).padStart(2,'0');
-    }
-
-    audio.addEventListener('timeupdate', () => {
-      const pct = (audio.currentTime / audio.duration) * 100 || 0;
-      progressBar.style.width = pct + '%';
-      timeEl.textContent = fmtTime(audio.currentTime);
-      drawWaveform(pct/100);
-    });
-    audio.addEventListener('ended', () => { playBtn.textContent = '▶'; });
-
-    // Static decorative waveform
-    function drawWaveform(progress) {
-      if (!canvas || !ctx) return;
-      const W = canvas.offsetWidth, H = canvas.offsetHeight;
-      canvas.width = W; canvas.height = H;
-      const bars = 80, barW = W / bars * 0.6, gap = W / bars * 0.4;
-      const seed = [.4,.6,.9,.7,.5,.8,.3,.7,.6,.4,.9,.5,.7,.8,.3,.6,.5,.9,.4,.7];
-      ctx.clearRect(0,0,W,H);
-      for (let i = 0; i < bars; i++) {
-        const h = (seed[i % seed.length] * 0.7 + 0.15) * H;
-        const x = i * (barW + gap);
-        const played = x / W < progress;
-        ctx.fillStyle = played ? '#1A1713' : '#D4CEC5';
-        ctx.fillRect(x, (H-h)/2, barW, h);
-      }
-    }
-    drawWaveform(0);
-    window.addEventListener('resize', () => drawWaveform(
-      audio.duration ? audio.currentTime/audio.duration : 0
-    ));
 
 
     // Album Kav player
